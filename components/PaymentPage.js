@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import Script from "next/script";
 import { fetchuser, fetchpayments, initiate } from "@/actions/useractions";
