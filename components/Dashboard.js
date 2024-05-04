@@ -20,33 +20,34 @@ const Dashboard = () => {
     razorpaysecret: "",
   });
 
-  useEffect(() => {
-    if (!session) {
-      router.push("/login");
-    } else {
-      getData();
-    }
-  }, [router, session, getData]);
+    useEffect(() => {
+    const getData = async () => {
+      try {
+        if (!session) {
+          router.push("/login");
+        } else {
+          // Fetch user data using session user name
+          const userData = await fetchuser(session.user.name);
+          // Update form state with user data if it exists
+          if (userData) {
+            setForm(userData);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
+    getData(); // Call getData inside useEffect callback
+
+  }, [router, session]);
 
   const handleChange = (e) => {
-    // console.log("Form before update:", form);
-
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const getData = async () => {
-    try {
-      // Fetch user data using session user name
-      const userData = await fetchuser(session.user.name);
-      // Update form state with user data if it exists
-      if (userData) {
-        setForm(userData);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       // Call API to update user profile with form data
       await updateProfile(e, session?.user.name, form);

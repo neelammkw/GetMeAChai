@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import Script from "next/script";
 import { fetchuser, fetchpayments, initiate } from "@/actions/useractions";
@@ -10,7 +9,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-
 
 const PaymentPage = ({ username }) => {
   const { data: session } = useSession();
@@ -25,8 +23,19 @@ const PaymentPage = ({ username }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        let u = await fetchuser(username);
+        setcurrentUser(u);
+        let dbpayments = await fetchpayments(username);
+        setPayment(dbpayments);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     getData();
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     if (searchParams.get("paymentdone") === "true") {
@@ -42,24 +51,13 @@ const PaymentPage = ({ username }) => {
         transition: Bounce,
       });
     }
-    if(session) {
-    router.push(`/${username}`);
+    if (session) {
+      router.push(`/${username}`);
     }
   }, [session, router, searchParams, username]);
 
   const handleChange = (e) => {
     setpaymentform({ ...paymentform, [e.target.name]: e.target.value });
-  };
-
-  const getData = async () => {
-    try {
-      let u = await fetchuser(username);
-      setcurrentUser(u);
-      let dbpayments = await fetchpayments(username);
-      setPayment(dbpayments);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
   };
 
   const pay = async (amount) => {
@@ -130,13 +128,18 @@ const PaymentPage = ({ username }) => {
       </div>
       <div className="info flex flex-col items-center justify-start my-20 pb-10 gap-2">
         <div className="font-bold text-lg">@{username}</div>
-        <div className="text-slate-400 ">Lets help {username} get a chai!</div>
         <div className="text-slate-400 ">
-          {payment.length} Payments .  {currentUser.name} has raised ₹{payment.reduce((a,b) => a + b.amount, 0)}
+          Lets help {username} get a chai!
+        </div>
+        <div className="text-slate-400 ">
+          {payment.length} Payments . {currentUser.name} has raised ₹
+          {payment.reduce((a, b) => a + b.amount, 0)}
         </div>
         <div className="payment flex gap-3 m-5 flex-col md:flex-row ">
           <div className="supporters w-full md:w-1/2 bg-red-50 text-black p-2 rounded-lg">
-            <h2 className="text-2xl font-bold my-2 text-center ">Top 10 Supporters</h2>
+            <h2 className="text-2xl font-bold my-2 text-center ">
+              Top 10 Supporters
+            </h2>
             <ul className="mx-4">
               {payment.length === 0 && <li>No payment yet</li>}
               {payment.map((p) => (
@@ -192,7 +195,7 @@ const PaymentPage = ({ username }) => {
                 disabled={
                   paymentform.name?.length < 3 ||
                   paymentform.message?.length < 4 ||
-                  paymentform.amount?.length<1
+                  paymentform.amount?.length < 1
                 }
                 onClick={() => pay(Number.parseInt(paymentform.amount) * 100)}
               >
@@ -218,7 +221,6 @@ const PaymentPage = ({ username }) => {
               >
                 Pay ₹ 1000
               </button>
-              {/* Other buttons */}
             </div>
           </div>
         </div>
