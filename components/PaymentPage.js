@@ -113,10 +113,10 @@ const PaymentPage = ({ username }) => {
 
       <div className=" relative  bg-red-50 items-center justify-center  ">
         <Image
-          className=" w-[40%] items-center overflow-hidden"
+          className=" items-center overflow-hidden"
           src={currentUser.coverpic}
           alt=""
-          height={100} width={100}
+          height={20} width={1400}
         />
         <div className="absolute md:-bottom-12 md:right-[46%] -bottom-10 right-[36%]  border-black justify-center ">
           <Image
@@ -149,7 +149,7 @@ const PaymentPage = ({ username }) => {
                   <Image
                     width={30}
                     className="rounded-full m-2"
-                    src="./user.jpg"
+                    src="/user.jpg"
                     alt="user" height={100}
                   />
                   <span>
