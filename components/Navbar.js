@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-
+import Image from 'next/image'
 const Navbar = () => {
   const { data: session } = useSession();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -15,7 +15,7 @@ const Navbar = () => {
       >
         Get Me a Chai!
         <span className="-mt-5">
-          <img src="./chai1.gif" width={30} alt="chai" />
+          <Image src="./chai1.gif" width={30} alt="chai" />
         </span>
       </Link>
 
