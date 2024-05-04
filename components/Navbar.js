@@ -15,7 +15,7 @@ const Navbar = () => {
       >
         Get Me a Chai!
         <span className="-mt-5">
-          <Image src="./chai1.gif" width={30} alt="chai" />
+          <Image src="/chai1.gif" width={30} alt="chai" height={30} />
         </span>
       </Link>
 

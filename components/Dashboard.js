@@ -47,7 +47,6 @@ const Dashboard = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     try {
       // Call API to update user profile with form data
       await updateProfile(e, session?.user.name, form);

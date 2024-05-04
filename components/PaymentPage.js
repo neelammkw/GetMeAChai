@@ -71,7 +71,7 @@ const PaymentPage = ({ username }) => {
         currency: "INR",
         name: "Get Me A Chai",
         description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        Image: "https://example.com/your_logo",
         order_id: orderId,
         callback_url: `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
         prefill: {
@@ -111,11 +111,12 @@ const PaymentPage = ({ username }) => {
 
       <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
-      <div className="cover relative w-full bg-red-50">
+      <div className=" relative  bg-red-50 items-center justify-center  ">
         <Image
-          className="cover w-full overflow-hidden"
+          className=" w-[40%] items-center overflow-hidden"
           src={currentUser.coverpic}
           alt=""
+          height={100} width={100}
         />
         <div className="absolute md:-bottom-12 md:right-[46%] -bottom-10 right-[36%]  border-black justify-center ">
           <Image
@@ -149,7 +150,7 @@ const PaymentPage = ({ username }) => {
                     width={30}
                     className="rounded-full m-2"
                     src="./user.jpg"
-                    alt="user"
+                    alt="user" height={100}
                   />
                   <span>
                     {p.name} donated{" "}
