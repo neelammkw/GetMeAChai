@@ -26,7 +26,8 @@ const Dashboard = () => {
     } else {
       getData();
     }
-  }, [router, session]);
+  }, [router, session, getData]);
+
 
   const handleChange = (e) => {
     // console.log("Form before update:", form);

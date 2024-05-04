@@ -6,7 +6,7 @@ export default function Home() {
       <div className="font-bold md:text-4xl flex gap-2 justify-center items-center px-5 md:px-0 text-3xl p-2">
         Buy Me a Chai
         <span>
-          <Image src="/chai.gif" width={60} height={60} />
+          <Image src="/chai.gif" width={60} height={60} alt="chai"/>
         </span>
       </div>
       <div className=" flex flex-col justify-center items-center gap-2 pl-5 ">

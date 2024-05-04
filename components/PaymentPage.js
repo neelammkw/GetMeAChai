@@ -9,6 +9,7 @@ import { Bounce } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 
 const PaymentPage = ({ username }) => {
@@ -44,7 +45,7 @@ const PaymentPage = ({ username }) => {
     if(session) {
     router.push(`/${username}`);
     }
-  }, [session]);
+  }, [session, router, searchParams, username]);
 
   const handleChange = (e) => {
     setpaymentform({ ...paymentform, [e.target.name]: e.target.value });
@@ -112,13 +113,13 @@ const PaymentPage = ({ username }) => {
       <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
       <div className="cover relative w-full bg-red-50">
-        <img
+        <Image
           className="cover w-full overflow-hidden"
           src={currentUser.coverpic}
           alt=""
         />
         <div className="absolute md:-bottom-12 md:right-[46%] -bottom-10 right-[36%]  border-black justify-center ">
-          <img
+          <Image
             className="rounded-full overflow-hidden  "
             width={100}
             height={100}
@@ -140,7 +141,7 @@ const PaymentPage = ({ username }) => {
               {payment.length === 0 && <li>No payment yet</li>}
               {payment.map((p) => (
                 <li key={p.id} className="my-2 flex items-center">
-                  <img
+                  <Image
                     width={30}
                     className="rounded-full m-2"
                     src="./user.jpg"
